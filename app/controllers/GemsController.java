@@ -1,9 +1,11 @@
 package controllers;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import models.Gems;
 import models.GemsList;
+import models.Review;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
@@ -31,6 +33,29 @@ public class GemsController extends Controller {
 			 PrintWriter writer = new PrintWriter("TryGiovanni.json");
 			System.out.println("Create: " + newGem);
 			writer.write(result.toString());
+			return created(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return badRequest("Missing information");
+		}
+
+	}
+	
+	public static Result storeReview(Long id) {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			System.err.println("POST Data");
+			JsonNode json = request().body().asJson();
+			System.err.println("json payload: " + json);
+			Review newReview = mapper.readValue(json.toString(), Review.class);
+			GemsList theList = GemsList.getInstance();
+			theList.getGemById(id).addReview(newReview);
+			//newGem = theList.addGem(newGem);
+			
+			 JsonNode result = Json.toJson(newReview);
+			
+			System.out.println("Create: " + newReview);
+			
 			return created(result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,8 +125,30 @@ public class GemsController extends Controller {
 			return notFound(); // 404
 		} else {
 			JsonNode result = Json.toJson(C);
+			System.out.println(result);
 			System.out.println("Got all contacts.");
 			return ok(result);
 		}
+	}
+	
+	public static Result getSearchName(String name){
+		GemsList theList = GemsList.getInstance();
+		System.out.println("search");
+		
+		 ArrayList<Gems> C = theList.searchByName(name);
+		System.out.println(C.toString());
+		
+		 
+		 
+		if (C == null) {
+			System.out.println("Not Found");
+			return notFound(); // 404
+		} else {
+			JsonNode result = Json.toJson(C);
+			System.out.println(result);
+			System.out.println("Got all Gems by Name.");
+			return ok(result);
+		}
+		
 	}
 }

@@ -10,10 +10,14 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 POST	/gem						controllers.GemsController.storeGem()
 
-GET 	/gems/:id					controllers.GemsController.getGem(id: Long)
+#GET 	/gems/:id					controllers.GemsController.getGem(id: Long)
 
 PUT 	/gems/:id					controllers.GemsController.updateGem(id: Long)
 
 DELETE 	/gems/:id					controllers.GemsController.deleteGem(id: Long)
 
-GET 	/gems						controllers.GemsController.getAllGems
+GET 	/gems						controllers.GemsController.getAllGems()
+
+POST     /gemReview/:id				controllers.GemsController.storeReview(id: Long)
+
+GET     /gems/:name			controllers.GemsController.getSearchName(name: String)
