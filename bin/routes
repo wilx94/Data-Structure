@@ -20,4 +20,8 @@ GET 	/gems						controllers.GemsController.getAllGems()
 
 POST     /gemReview/:id				controllers.GemsController.storeReview(id: Long)
 
-GET     /gems/:name			controllers.GemsController.getSearchName(name: String)
+GET     /gems/:name					controllers.GemsController.getSearchName(name: String)
+
+GET     /gemsBP/:price       		controllers.GemsController.getSearchPrice(price: Long)
+
+GET     /gemsBR/:word       		controllers.GemsController.getSearchReview(word: String)

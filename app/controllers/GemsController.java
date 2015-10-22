@@ -151,4 +151,46 @@ public class GemsController extends Controller {
 		}
 		
 	}
+	
+	public static Result getSearchPrice(long price){
+		GemsList theList = GemsList.getInstance();
+		System.out.println("search by price");
+		
+		 ArrayList<Gems> C = theList.searchByPrice(price);
+		System.out.println(C.toString());
+		
+		 
+		 
+		if (C == null) {
+			System.out.println("Not Found");
+			return notFound(); // 404
+		} else {
+			JsonNode result = Json.toJson(C);
+			System.out.println(result);
+			System.out.println("Got all Gems by Price.");
+			return ok(result);
+		}
+		
+	}
+	
+	public static Result getSearchReview(String word){
+		GemsList theList = GemsList.getInstance();
+		System.out.println("search by price");
+		
+		 ArrayList<Gems> C = theList.searchByReview(word);
+		System.out.println(C.toString());
+		
+		 
+		 
+		if (C == null) {
+			System.out.println("Not Found");
+			return notFound(); // 404
+		} else {
+			JsonNode result = Json.toJson(C);
+			System.out.println(result);
+			System.out.println("Got all Gems by Price.");
+			return ok(result);
+		}
+		
+	}
 }

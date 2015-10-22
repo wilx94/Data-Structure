@@ -37,7 +37,7 @@ public class GemsList {
 	}
 	
 	public Gems[] getAllGems(){
-		Gems result[] = new Gems[this.personList.size()+1];
+		Gems result[] = new Gems[this.personList.size()];
 		int i = 0;
 		for(Gems gem: this.personList){
 			result[i] = gem;
@@ -87,14 +87,14 @@ public class GemsList {
 		
 	}
 	
-	public ArrayList<Gems> searchByPrice(long min, long max){
+	public ArrayList<Gems> searchByPrice(long price){
 		
 	
 		
 		ArrayList<Gems> result = new ArrayList<Gems>();
 		
 		for(Gems gem : this.personList){
-			if(gem.getPrice()<=max && gem.getPrice()>=min){
+			if(gem.getPrice()<=price){
 				result.add(gem);
 			}
 		}
@@ -125,7 +125,7 @@ public class GemsList {
 		for(Gems gem: this.personList){
 			for(int i = 0; i < gem.getReviews().size(); i++){
 			if(gem.getReviews().get(i).getAuthor().contains(word) || 
-					gem.getReviews().get(i).getBody().contains(word)){
+					gem.getReviews().get(i).getBody().contains(word) || Long.toString(gem.getReviews().get(i).getStars()).contains(word)){
 									resultList.add(gem);
 			}
 			}
